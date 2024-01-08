@@ -1,0 +1,50 @@
+/* FONT FACES */
+@font-face {
+    font-family: LF-Normal;
+    src: url("./fonts/LibreFranklin-Medium.ttf");
+}
+
+@font-face {
+    font-family: LF-Bold;
+    src: url("./fonts/LibreFranklin-Bold.ttf");
+}
+
+@font-face {
+    font-family: Logo-Font;
+    src: url("./fonts/Quinn Rounded Extra Bold.otf");
+}
+
+/* ROOT */
+:root {
+    --normal: 'LF-Normal', sans-serif;
+    --bold: 'LF-Bold', sans-serif;
+    --logo: 'Logo-Font', sans-serif;
+}
+
+/* GLOBAL STYLES */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* FOOTER */
+.footer {
+    font-family: var(--normal);
+    font-size: 18px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(22, 22, 22, 0.8);
+    display: grid;
+    place-items: center;
+}
+
+a {
+    all: unset;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    font-family: var(--bold);
+    cursor: pointer;
+}
