@@ -19,21 +19,241 @@
     --normal: 'LF-Normal', sans-serif;
     --bold: 'LF-Bold', sans-serif;
     --logo: 'Logo-Font', sans-serif;
+    --header: #997b66;
+    --logo-text: #faedcd;
+    --tools: #eae5d0;
+    --tools-active: #deb68a;
+    --actions: #eeeae6;
+    --footer: #a5a58d;
+    --offwhite-g: #f4f4d5;
 }
 
 /* GLOBAL STYLES */
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    filter: invert(16%) sepia(19%) saturate(1679%) hue-rotate(344deg) brightness(96%) contrast(91%);
+}
+
+/* PARENT CONTAINER */
+.container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 180px 1fr 50px;
+    grid-auto-flow: row;
+}
+
+/* HEADER */
+.header {
+    place-self: center;
+    background-color: var(--header);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    place-items: center;
+    gap: 16px;
+    padding-left: 32px;
+}
+
+.header img {
+    all:unset;
+    width: 85px;
+}
+
+.logo-text {
+    font-family: var(--logo);
+    color: var(--logo-text);
+    font-size: 72px;
+    margin-bottom: -12px;
+}
+
+/* DISPLAY */
+.display {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    grid-auto-flow: column;
+    background-color: var(--actions);
+    color: #492d17;
+}
+
+.tools {
+    background-color: var(--tools);
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    align-content: start;
+    gap: 24px;
+    grid-auto-flow: row;
+    height: 100%;
+    overflow: auto;
+}
+
+.todos {
+    padding-top: 12px;
+    display: grid;
+    place-items: center;
+    gap: 12px;
+}
+
+.todos button {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height: 100%;
+    width: 80%;
+    border-radius: 10px;
+    text-align: center;
+    margin: 16px 0 16px 0;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.todos button img {
+    width: 35px;
+}
+
+.todos button:hover {
+    background-color: var(--tools-active);
+}
+
+/* PROJECTS */
+.projects {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+}
+
+.project-title {
+    font-family: var(--bold);
+    font-size: 36px;
+    padding-left: 10%;
+}
+
+.project-list {
+    padding-top: 16px;
+    display: grid;
+}
+
+.add-project,
+.project-content {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height: 100%;
+    width: 80%;
+    border-radius: 10px;
+    place-self: center;
+    text-align: center;
+    margin: 16px 0 16px 0;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.add-project img,
+.project-logo {
+    width: 35px;
+}
+
+.add-project:hover,
+.project-content:hover {
+    background-color: var(--tools-active);
+}
+
+.project-content p {
+    display: flex;
+    justify-content: start;
+    flex-grow: 1;
+}
+
+.close-button {
+    flex-shrink: 1;
+    width: 25px;
+    margin-right: 16px;
+    visibility: hidden;
+}
+
+.project-content:hover .close-button {
+    visibility: visible;
+}
+
+/* ACTION DISPLAY */
+.action-display {
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: row;
+    width: 70%;
+    justify-self: center;
+    align-content:start;
+    padding-top: 12px;
+}
+
+.action-header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-size:42px;
+    font-family:var(--bold);
+}
+
+.action-header img {
+    justify-self: start;
+    width: 50px;
+}
+
+.add-task {
+    all: unset;
+    width: 100%;
+    height: 60px;
+    border-radius:15px;
+    display: flex;
+    align-items: center;
+    font-family:var(--normal);
+    font-size:26px;
+    padding-left:16px;
+    cursor:pointer;
+    margin-bottom:16px;
+}
+
+.add-task img {
+    justify-self: start;
+    width: 30px;
+    justify-self: end;
+}
+
+.add-task:hover {
+    background-color:#E8CDAF;
+}
+
+.pending-task,
+.completed-task {
+    height: fit-content;
 }
 
 /* FOOTER */
 .footer {
     font-family: var(--normal);
-    font-size: 18px;
+    font-size: 24px;
     height: 100%;
     width: 100%;
-    background-color: rgba(22, 22, 22, 0.8);
+    background-color: var(--footer);
+    color: var(--offwhite-g);
     display: grid;
     place-items: center;
 }
