@@ -46,10 +46,32 @@ img {
     filter: invert(16%) sepia(19%) saturate(1679%) hue-rotate(344deg) brightness(96%) contrast(91%);
 }
 
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #b7b7a4; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #6b705c; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b705c; 
+  }
+
 /* PARENT CONTAINER */
 .container {
-    height: 100%;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: grid;
     grid-template-rows: 180px 1fr 50px;
     grid-auto-flow: row;
@@ -68,7 +90,7 @@ img {
 }
 
 .header img {
-    all:unset;
+    all: unset;
     width: 85px;
 }
 
@@ -77,6 +99,7 @@ img {
     color: var(--logo-text);
     font-size: 72px;
     margin-bottom: -12px;
+    cursor:default;
 }
 
 /* DISPLAY */
@@ -140,6 +163,7 @@ img {
     font-family: var(--bold);
     font-size: 36px;
     padding-left: 10%;
+    cursor:default;
 }
 
 .project-list {
@@ -185,6 +209,7 @@ img {
     flex-shrink: 1;
     width: 25px;
     margin-right: 16px;
+    cursor:auto;
     visibility: hidden;
 }
 
@@ -199,7 +224,7 @@ img {
     grid-auto-flow: row;
     width: 70%;
     justify-self: center;
-    align-content:start;
+    align-content: start;
     padding-top: 12px;
 }
 
@@ -208,8 +233,9 @@ img {
     height: 80px;
     display: flex;
     align-items: center;
-    font-size:42px;
-    font-family:var(--bold);
+    font-size: 42px;
+    font-family: var(--bold);
+    cursor:default;
 }
 
 .action-header img {
@@ -221,29 +247,108 @@ img {
     all: unset;
     width: 100%;
     height: 60px;
-    border-radius:15px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
-    font-family:var(--normal);
-    font-size:26px;
-    padding-left:16px;
-    cursor:pointer;
-    margin-bottom:16px;
+    font-family: var(--normal);
+    font-size: 26px;
+    cursor: pointer;
+    margin-bottom: 16px;
 }
 
 .add-task img {
     justify-self: start;
     width: 30px;
+    margin-left:16px;
     justify-self: end;
 }
 
 .add-task:hover {
-    background-color:#E8CDAF;
+    background-color: #E8CDAF;
 }
 
-.pending-task,
-.completed-task {
-    height: fit-content;
+.pending-task, .completed-task {
+    display:grid;
+}
+
+.pending-item, .completed-item {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height: 60px;
+    width: 100%;
+    border-radius: 10px;
+    place-self: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.pending-item:hover, .completed-item:hover {
+    background-color: #E8CDAF;
+}
+
+.pending-toggler,.completed-toggler {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 3px solid #492d17;
+    background-color: transparent;
+    display:grid;
+    place-items:center;
+    margin-left:16px;
+}
+
+.pending-toggler div,.completed-toggler div {
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.completed-toggler div {
+    background-color: #492d17;
+}
+
+.pending-item:hover .pending-toggler div,.completed-item:hover .completed-toggler div {
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.pending-item:hover .pending-toggler div{
+    background-color:#492d17;
+}
+
+.completed-item:hover .completed-toggler div {
+    background-color: transparent;
+}
+
+.completed-item p {
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    text-decoration-color: #492d17;
+}
+
+.completed-item p,.pending-item p{
+    display: flex;
+    justify-content: start;
+    flex-grow: 1;
+}
+
+.completed-item img,.pending-item img{
+    flex-shrink: 1;
+    width: 35px;
+    margin-right: 16px;
+    cursor: auto;
+    visibility: hidden;
+}
+
+.pending-item:hover img, .completed-item:hover img {
+    visibility: visible;
 }
 
 /* FOOTER */
@@ -253,7 +358,7 @@ img {
     height: 100%;
     width: 100%;
     background-color: var(--footer);
-    color: var(--offwhite-g);
+    color: #333333;
     display: grid;
     place-items: center;
 }

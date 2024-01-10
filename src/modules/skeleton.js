@@ -6,6 +6,7 @@ import projectPath from './assets/project.svg';
 import todayPath from './assets/today.svg';
 import weekPath from './assets/week.svg';
 import closePath from './assets/close.svg';
+import deletePath from './assets/delete.svg';
 
 /* Creates
         <div class="header">
@@ -72,8 +73,16 @@ actionDisplayDiv.classList.add('action-display');
 actionDisplayDiv.innerHTML = `
     <p class="action-header"><img src="${homePath}">Tasks</p>
     <button class="add-task"><img src="${plusPath}">Add Task</button>
-    <div class="pending-task"></div>
-    <div class="completed-task"></div>`;
+    <div class="pending-task">
+        <div class="pending-item">
+            <div class="pending-toggler"><div></div></div><p>center a div</p><img src="${deletePath}">
+        </div>
+    </div>
+    <div class="completed-task">
+        <div class="completed-item">
+            <div class="completed-toggler"><div></div></div><p>center a button</p><img src="${deletePath}">
+        </div>
+    </div>`;
 displayDiv.appendChild(actionDisplayDiv);
 
 container.appendChild(displayDiv);

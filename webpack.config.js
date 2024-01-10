@@ -5,7 +5,9 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    skeleton: './src/modules/skeleton.js'
+    skeleton: './src/modules/skeleton.js',
+    logic: './src/modules/logic.js',
+    domValues: './src/modules/domValues.js'
   },
   devtool: 'inline-source-map',
   devServer: {
