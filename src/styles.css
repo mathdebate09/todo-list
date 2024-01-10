@@ -24,6 +24,7 @@
     --tools: #eae5d0;
     --tools-active: #deb68a;
     --actions: #eeeae6;
+    --actions-active: #E8CDAF;
     --footer: #a5a58d;
     --offwhite-g: #f4f4d5;
 }
@@ -171,8 +172,7 @@ img {
     display: grid;
 }
 
-.add-project,
-.project-content {
+.project-item {
     all: unset;
     font-family: var(--normal);
     font-size: 22px;
@@ -189,17 +189,33 @@ img {
     cursor: pointer;
 }
 
+.add-project {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height: 67px;
+    width:100%;
+    border-radius: 10px;
+    place-self: center;
+    text-align: start;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
 .add-project img,
 .project-logo {
     width: 35px;
 }
 
 .add-project:hover,
-.project-content:hover {
+.project-item:hover {
     background-color: var(--tools-active);
 }
 
-.project-content p {
+.project-item p {
     display: flex;
     justify-content: start;
     flex-grow: 1;
@@ -213,8 +229,69 @@ img {
     visibility: hidden;
 }
 
-.project-content:hover .close-button {
+.project-item:hover .close-button {
     visibility: visible;
+}
+
+/* ADD PROJECT FORM */
+.project-div {
+    padding-top:14px;
+    justify-self:center;
+    width:80%;
+}
+
+#project-form {
+    display:grid;
+    grid-template-rows:repeat(2, auto);
+    gap:12px;
+    align-items:center;
+    padding-bottom:16px;
+    font-family:var(--normal);
+    justify-self:center;
+}
+
+/* title/date inputs */
+#project-title-input {
+    height:42px;
+    border-radius:10px;
+    padding-left:16px;
+    font-size:24px;
+    background-color:#F9F8F7;
+    border: 2px solid #492d17;
+}
+
+#project-title-input::placeholder {
+    font-size:24px;
+}
+
+#project-title-input:focus {
+    outline:none;
+}
+
+/* Add/cancel project buttons */
+.project-button-div {
+    display:flex;
+    gap:24px;
+}
+
+.project-button-div button {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height:42px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    flex-grow:1;
+}
+
+#project-submit {
+    background-color:var(--actions-active);
+}
+
+#project-cancel {
+    color:var(--actions);
+    background-color: #6F665C;
 }
 
 /* ACTION DISPLAY */
@@ -267,6 +344,75 @@ img {
     background-color: #E8CDAF;
 }
 
+/* Add task form */
+#task-form {
+    display:grid;
+    grid-template-rows:repeat(2, auto);
+    align-items:center;
+    gap:16px;
+    padding-bottom:16px;
+    font-family:var(--normal);
+}
+
+/* title/date inputs */
+.task-input-div {
+    display:flex;
+    gap:16px;
+}
+
+.task-input-div input {
+    height:42px;
+    border-radius:10px;
+    padding-left:16px;
+    font-size:24px;
+    background-color:#F9F8F7;
+    border: 2px solid #492d17;
+}
+
+.task-input-div input::placeholder {
+    font-size:24px;
+}
+
+.task-input-div input:focus {
+    outline:none;
+}
+
+#task-title-input {
+
+    flex-grow:1;
+}
+
+#task-date-input {
+    width:200px;
+}
+
+/* Add/cancel buttons */
+.task-button-div {
+    display:flex;
+    gap:24px;
+}
+
+.task-button-div button {
+    all: unset;
+    font-family: var(--normal);
+    font-size: 22px;
+    height:42px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    flex-grow:1;
+}
+
+#task-submit {
+    background-color:var(--actions-active);
+}
+
+#task-cancel {
+    color:var(--actions);
+    background-color: #6F665C;
+}
+
+/* TASKS LISTS */
 .pending-task, .completed-task {
     display:grid;
 }

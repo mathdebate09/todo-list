@@ -61,9 +61,13 @@ projectsDiv.classList.add('projects');
 projectsDiv.innerHTML = `
     <p class="project-title">Projects</p>
     <div class="project-list">
-        <div class="project-content"><img class="project-logo" src="${projectPath}"><p>Default</p><img class="close-button" src="${closePath}"></div>
+        <div class="project-item">
+            <img class="project-logo" src="${projectPath}"><p>Default</p><img class="close-button" src="${closePath}">
+        </div>
     </div>
-    <button class="add-project"><img src="${plusPath}">Add Project</button>`;
+    <div class="project-div">
+        <button class="add-project"><img src="${plusPath}">Add Project</button>
+    </div>`;
 toolsDiv.appendChild(projectsDiv);
 
 displayDiv.appendChild(toolsDiv);
@@ -72,7 +76,9 @@ const actionDisplayDiv = document.createElement('div');
 actionDisplayDiv.classList.add('action-display');
 actionDisplayDiv.innerHTML = `
     <p class="action-header"><img src="${homePath}">Tasks</p>
-    <button class="add-task"><img src="${plusPath}">Add Task</button>
+    <div class="task-div">
+        <button class="add-task"><img src="${plusPath}">Add Task</button>
+    </div>
     <div class="pending-task">
         <div class="pending-item">
             <div class="pending-toggler"><div></div></div><p>center a div</p><img src="${deletePath}">
