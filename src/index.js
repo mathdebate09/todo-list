@@ -4,8 +4,11 @@ import './modules/skeleton.js';
 import todoLogic from './modules/logic.js';
 import displayController from './modules/domValues.js';
 
-todoLogic.loopTasks();
-todoLogic.loopProjects();
+document.addEventListener('DOMContentLoaded', function () {
+    todoLogic.loadDataFromLocalStorage();
+    todoLogic.loopProjects();
+    todoLogic.loopTasks();
+});
 
 displayController.addTaskTrigger();
 displayController.addProjectTrigger();

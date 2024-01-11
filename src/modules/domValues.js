@@ -27,6 +27,7 @@ const displayController = (function () {
         taskForm.addEventListener('submit', function (event) {
             event.preventDefault();
             let returnDate = '';
+            let returnIsComplete = false;
 
             const taskTitle = document.querySelector('#task-title-input');
             const taskDate = document.querySelector('#task-date-input');
@@ -48,7 +49,7 @@ const displayController = (function () {
 
             returnDate = taskDate.value;
 
-            todoLogic.addTask(taskTitle.value, returnDate, todoLogic.getCurrentProject());
+            todoLogic.addTask(taskTitle.value, returnDate, todoLogic.getCurrentProject(), returnIsComplete);
 
             taskTitle.value = '';
             taskDate.value = '';

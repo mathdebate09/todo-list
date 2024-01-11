@@ -1,6 +1,6 @@
 import { format, parse } from 'date-fns';
 
-function Task(title, date, projectGroup) {
+function Task(title, date, projectGroup, isComplete) {
     this.title = title;
     if (date === "") {
         // Set the date to today's date
@@ -9,7 +9,7 @@ function Task(title, date, projectGroup) {
         // Parse the date string into a Date object and format it
         this.date = format(parse(date, 'dd/MM/yyyy', new Date()), 'dd/MM/yyyy');
     }
-    this.isComplete = false;
+    this.isComplete = isComplete;
     this.projectGroup = projectGroup;
 
     this.getTitle = function () {

@@ -6,27 +6,30 @@ import { startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
 const todoLogic = (function () {
     let taskList = [];
 
-    const addTask = function (title, date, project) {
-        const newTask = new Task(title, date, project);
+    const addTask = function (title, date, project, isComplete) {
+        const newTask = new Task(title, date, project, isComplete);
         taskList.push(newTask);
         taskList.sort((a, b) => compareAsc(new Date(a.getDate()), new Date(b.getDate())));
+        saveDataToLocalStorage();
         console.log(taskList);
     };
 
     const deleteTask = function (index) {
         taskList.splice(index, 1);
+        saveDataToLocalStorage();
     };
 
     const getTaskTitle = function (index) {
-        return taskList[index].getTitle;
+        return taskList[index].getTitle();
     };
 
     const getTaskDate = function (index) {
-        return taskList[index].getDate;
+        return taskList[index].getDate();
     };
 
     const setTaskDate = function (newDate, index) {
         taskList[index].setDate(newDate);
+        saveDataToLocalStorage();
     };
 
     const getIsTaskComplete = function (index) {
@@ -35,6 +38,7 @@ const todoLogic = (function () {
 
     const setIsTaskComplete = function (isComplete, index) {
         taskList[index].setIsComplete(isComplete);
+        saveDataToLocalStorage();
     };
 
     const getTaskProjectGroup = function (index) {
@@ -43,12 +47,15 @@ const todoLogic = (function () {
 
     const setTaskProjectGroup = function (newProjectGroup, index) {
         taskList[index].setProjectGroup(newProjectGroup);
+        saveDataToLocalStorage();
     };
 
     const currentIndex = function () {
         return (taskList.length() - 1);
     };
 
+
+    // isThisWeek to check for week
     function isThisWeek(date) {
         const now = new Date();
         const start = startOfWeek(now, { weekStartsOn: 1 }); // week starts on Monday
@@ -58,6 +65,7 @@ const todoLogic = (function () {
     }
 
     const loopTasks = function () {
+        saveDataToLocalStorage();
         const pendingTaskDiv = document.querySelector('.pending-task');
         pendingTaskDiv.innerHTML = '';
         const completedTaskDiv = document.querySelector('.completed-task');
@@ -103,13 +111,14 @@ const todoLogic = (function () {
         });
     };
 
-    const projectsList = [];
+    let projectsList = [];
 
     let currentProject = "default";
     let currentFilter = "inbox";
 
     const setCurrentFilter = function (thisFilter) {
         currentFilter = thisFilter;
+        saveDataToLocalStorage();
     }
 
     const getCurrentFilter = function () {
@@ -118,14 +127,17 @@ const todoLogic = (function () {
 
     const addNewProject = function (newProject) {
         projectsList.push(newProject);
+        saveDataToLocalStorage();
     };
 
     const deleteProject = function (index) {
         projectsList.splice(index, 1);
+        saveDataToLocalStorage();
     };
 
     const setCurrentProject = function (thisProject) {
         currentProject = thisProject;
+        saveDataToLocalStorage();
     }
 
     const getCurrentProject = function () {
@@ -133,6 +145,7 @@ const todoLogic = (function () {
     }
 
     const loopProjects = function () {
+        saveDataToLocalStorage();
         const projectListDiv = document.querySelector('.project-list');
         projectListDiv.innerHTML = '';
 
@@ -141,12 +154,32 @@ const todoLogic = (function () {
         });
     };
 
+    const saveDataToLocalStorage = function () {
+        localStorage.setItem('taskList', JSON.stringify(taskList));
+        localStorage.setItem('projectsList', JSON.stringify(projectsList));
+    };
+
+    const loadDataFromLocalStorage = function () {
+        const storedTaskList = localStorage.getItem('taskList');
+        const storedProjectsList = localStorage.getItem('projectsList');
+        
+        if (storedTaskList) {
+            const parsedTaskList = JSON.parse(storedTaskList);
+            taskList = parsedTaskList.map(task => new Task(task.title, task.date, task.projectGroup, task.isComplete));
+        }
+        
+        if (storedProjectsList) {
+            projectsList = JSON.parse(storedProjectsList);
+        }
+    };
+
     return {
         addTask, deleteTask, getTaskTitle,
         getTaskDate, setTaskDate, getIsTaskComplete,
         setIsTaskComplete, getTaskProjectGroup, setTaskProjectGroup,
         currentIndex, loopTasks, addNewProject, loopProjects, deleteProject,
-        setCurrentProject, getCurrentProject, setCurrentFilter, getCurrentFilter
+        setCurrentProject, getCurrentProject, setCurrentFilter, getCurrentFilter,
+        saveDataToLocalStorage, loadDataFromLocalStorage
     };
 })();
 
