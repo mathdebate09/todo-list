@@ -1,6 +1,7 @@
 import Task from './taskListHandler.js';
 import displayController from './domValues.js';
-import deletePath from './assets/delete.svg';
+import { compareAsc, isToday, startOfDay } from 'date-fns';
+import { startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
 
 const todoLogic = (function () {
     let taskList = [];
@@ -8,6 +9,7 @@ const todoLogic = (function () {
     const addTask = function (title, date, project) {
         const newTask = new Task(title, date, project);
         taskList.push(newTask);
+        taskList.sort((a, b) => compareAsc(new Date(a.getDate()), new Date(b.getDate())));
         console.log(taskList);
     };
 
@@ -47,6 +49,14 @@ const todoLogic = (function () {
         return (taskList.length() - 1);
     };
 
+    function isThisWeek(date) {
+        const now = new Date();
+        const start = startOfWeek(now, { weekStartsOn: 1 }); // week starts on Monday
+        const end = endOfWeek(now, { weekStartsOn: 1 }); // week ends on Sunday
+
+        return isWithinInterval(date, { start, end });
+    }
+
     const loopTasks = function () {
         const pendingTaskDiv = document.querySelector('.pending-task');
         pendingTaskDiv.innerHTML = '';
@@ -54,26 +64,57 @@ const todoLogic = (function () {
         completedTaskDiv.innerHTML = '';
 
         taskList.forEach(function (task, index) {
-            if (task.getIsComplete()) {
-                displayController.displayCompletedTasks(task);
-            } else {
-                displayController.displayPendingTasks(task);
-            }
 
-            const lastPendingTaskDiv = pendingTaskDiv.lastChild;
-            // Add click event listener to the task div
-            lastPendingTaskDiv.addEventListener('click', function (event) {
-                // Check if the clicked element is the delete button
-                if (event.target.classList.contains('task-delete-button')) {
-                    deleteTask(index);
-                    loopTasks();
+            const taskDateString = task.getDate();
+            const [day, month, year] = taskDateString.split("/");
+            const taskDate = startOfDay(new Date(`${month}/${day}/${year}`));
+
+            if (getCurrentFilter() === "inbox") {
+                if (task.getIsComplete()) {
+                    displayController.displayCompletedTasks(task, index);
+                } else {
+                    displayController.displayPendingTasks(task, index);
                 }
-            });
+            } else if (currentFilter === "today") {
+                if (isToday(taskDate)) {
+                    if (task.getIsComplete()) {
+                        displayController.displayCompletedTasks(task, index);
+                    } else {
+                        displayController.displayPendingTasks(task, index);
+                    }
+                }
+            } else if (currentFilter === "this-week") {
+                if (isThisWeek(taskDate)) {
+                    if (task.getIsComplete()) {
+                        displayController.displayCompletedTasks(task, index);
+                    } else {
+                        displayController.displayPendingTasks(task, index);
+                    }
+                }
+            } else if (getCurrentFilter() === "project") {
+                if (task.getProjectGroup() === currentProject) {
+                    if (task.getIsComplete()) {
+                        displayController.displayCompletedTasks(task, index);
+                    } else {
+                        displayController.displayPendingTasks(task, index);
+                    }
+                }
+            }
         });
     };
 
-
     const projectsList = [];
+
+    let currentProject = "default";
+    let currentFilter = "inbox";
+
+    const setCurrentFilter = function (thisFilter) {
+        currentFilter = thisFilter;
+    }
+
+    const getCurrentFilter = function () {
+        return currentFilter;
+    }
 
     const addNewProject = function (newProject) {
         projectsList.push(newProject);
@@ -83,23 +124,20 @@ const todoLogic = (function () {
         projectsList.splice(index, 1);
     };
 
+    const setCurrentProject = function (thisProject) {
+        currentProject = thisProject;
+    }
+
+    const getCurrentProject = function () {
+        return currentProject;
+    }
+
     const loopProjects = function () {
         const projectListDiv = document.querySelector('.project-list');
         projectListDiv.innerHTML = '';
 
         projectsList.forEach(function (projectTitle, index) {
-            displayController.displayProjects(projectTitle);
-
-            // Add click event listener to the newly added project div
-            const projectDiv = projectListDiv.lastChild;
-
-            projectDiv.addEventListener('click', function (event) {
-                // Check if the clicked element is the close button
-                if (event.target.classList.contains('close-button')) {
-                    deleteProject(index);
-                    loopProjects();
-                }
-            });
+            displayController.displayProjects(projectTitle, index);
         });
     };
 
@@ -107,7 +145,8 @@ const todoLogic = (function () {
         addTask, deleteTask, getTaskTitle,
         getTaskDate, setTaskDate, getIsTaskComplete,
         setIsTaskComplete, getTaskProjectGroup, setTaskProjectGroup,
-        currentIndex, loopTasks, addNewProject, loopProjects, deleteProject
+        currentIndex, loopTasks, addNewProject, loopProjects, deleteProject,
+        setCurrentProject, getCurrentProject, setCurrentFilter, getCurrentFilter
     };
 })();
 

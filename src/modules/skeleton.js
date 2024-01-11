@@ -61,9 +61,6 @@ projectsDiv.classList.add('projects');
 projectsDiv.innerHTML = `
     <p class="project-title">Projects</p>
     <div class="project-list">
-        <div class="project-item">
-            <img class="project-logo" src="${projectPath}"><p>Default</p><img class="close-button" src="${closePath}">
-        </div>
     </div>
     <div class="project-div">
         <button class="add-project"><img src="${plusPath}">Add Project</button>
@@ -80,14 +77,8 @@ actionDisplayDiv.innerHTML = `
         <button class="add-task"><img src="${plusPath}">Add Task</button>
     </div>
     <div class="pending-task">
-        <div class="pending-item">
-            <div class="pending-toggler"><div></div></div><p>center a div</p><img src="${deletePath}">
-        </div>
     </div>
     <div class="completed-task">
-        <div class="completed-item">
-            <div class="completed-toggler"><div></div></div><p>center a button</p><img src="${deletePath}">
-        </div>
     </div>`;
 displayDiv.appendChild(actionDisplayDiv);
 
